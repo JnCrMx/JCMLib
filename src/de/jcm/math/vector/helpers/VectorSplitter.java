@@ -24,6 +24,11 @@ public class VectorSplitter
 	 */
 	public static Vector2D[] splitVector2D(Vector2D v2d, double angle1, double angle2)
 	{		
+		if(angle1>=90 || angle2>=90)
+		{
+			return null;
+		}
+		
 		Vector2D par1=VectorAngle.createVector2D(-angle1, 1);
 		Vector2D par2=VectorAngle.createVector2D(-angle2, 1);
 		
