@@ -6,6 +6,22 @@ import de.jcm.math.vector.Vector2D;
 
 public class VectorSplitter 
 {
+	/**
+	 * Splites a vector in two by two angles using functions
+	 * 
+	 * @param v2d Vector to split (x will be ignored)
+	 * @param angle1 First angle
+	 * @param angle2 Secound angle
+	 * @return An array of vectors
+	 * 
+	 * @see de.jcm.math.vector.Vector2D
+	 * @see de.jcm.math.vector.helpers.VectorFunction
+	 * @see de.jcm.math.functions.LinearFunction
+	 * @see de.jcm.math.functions.LinearFunction#getIntersection(de.jcm.math.functions.Function)
+	 * 
+	 * @author JCM
+	 * @since 16.05.2017 18:57
+	 */
 	public static Vector2D[] splitVector2D(Vector2D v2d, double angle1, double angle2)
 	{		
 		Vector2D par1=VectorAngle.createVector2D(-angle1, 1);
