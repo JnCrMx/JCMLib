@@ -9,9 +9,9 @@ public class Test1
 
 	public static void main(String[] args) 
 	{
-		Vector2D v2d=VectorAngle.createVector2D(0, 10);
+		Vector2D v2d=VectorAngle.createVector2D(0, 1000);
 		
-		Vector2D[] v2ds=VectorSplitter.splitVector2D(v2d, 1, 1);
+		Vector2D[] v2ds=VectorSplitter.splitVector2D(v2d, 20, 70);
 		
 		Vector2D ges=new Vector2D(0, 0);
 		
