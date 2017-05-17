@@ -7,7 +7,14 @@ import de.jcm.math.vector.Vector2D;
 public class VectorSplitter 
 {
 	/**
-	 * Splits a vector in two by two angles using functions
+	 * Splits a vector in two by two angles using functions <br>
+	 * <b> No given angle may be bigger or same than 90 </b> <p>
+	 * 
+	 * Example: <br>
+	 * <code>
+	 * Vector2D vector2d = new Vector2D(0, 10); <br>
+	 * Vector2D[] vectors = VectorSplitter.splitVector2D(vector2d, 20, 20);
+	 * </code>
 	 * 
 	 * @param v2d Vector to split (x will be ignored)
 	 * @param angle1 First angle
@@ -53,6 +60,27 @@ public class VectorSplitter
 		return new Vector2D[]{ev1,ev2};
 	}
 	
+	/**
+	 * Splits a vector in two by two angles using functions <br>
+	 * <b> angle1 + angle2 must be 90 </b> <p>
+	 * 
+	 * Example: <br>
+	 * <code>
+	 * Vector2D vector2d = new Vector2D(0, 10); <br>
+	 * Vector2D[] vectors = VectorSplitter.squareSplitVector2D(vector2d, 20, 70);
+	 * </code>
+	 * 
+	 * @param v2d Vector to split (x will be ignored)
+	 * @param angle1 First angle
+	 * @param angle2 Second angle
+	 * @return An array of vectors
+	 * 
+	 * @see de.jcm.math.vector.Vector2D
+	 * @see java.lang.Math#cos(double)
+	 * 
+	 * @author JCM
+	 * @since 16.05.2017 18:57
+	 */
 	public static Vector2D[] squareSplitVector2D(Vector2D v2d, double angle1, double angle2)
 	{
 		if(angle1+angle2!=90)
