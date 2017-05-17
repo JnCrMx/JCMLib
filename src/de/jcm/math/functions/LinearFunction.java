@@ -2,6 +2,7 @@ package de.jcm.math.functions;
 
 import de.jcm.math.Point2D;
 
+//TODO: Create javadoc
 public class LinearFunction extends Function
 {
 	private double m;

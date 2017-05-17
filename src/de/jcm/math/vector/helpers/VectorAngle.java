@@ -20,11 +20,8 @@ public class VectorAngle
 	public static Vector2D createVector2D(double angle, double value)
 	{
 		double a2=toRad(angle);
-		//System.err.println(a2);
 		double x=Math.sin((float) a2);
 		double y=Math.cos((float) a2);
-		//x=Math.rint(x);
-		//y=Math.rint(y);
 		x=x*value;
 		y=y*value;
 		return new Vector2D(x, y);

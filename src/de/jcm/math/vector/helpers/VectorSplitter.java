@@ -7,11 +7,11 @@ import de.jcm.math.vector.Vector2D;
 public class VectorSplitter 
 {
 	/**
-	 * Splites a vector in two by two angles using functions
+	 * Splits a vector in two by two angles using functions
 	 * 
 	 * @param v2d Vector to split (x will be ignored)
 	 * @param angle1 First angle
-	 * @param angle2 Secound angle
+	 * @param angle2 Second angle
 	 * @return An array of vectors
 	 * 
 	 * @see de.jcm.math.vector.Vector2D
@@ -26,7 +26,7 @@ public class VectorSplitter
 	{		
 		if(angle1>=90 || angle2>=90)
 		{
-			return null;
+			throw new IllegalArgumentException("an angle is bigger as 90 or is 90");
 		}
 		
 		Vector2D par1=VectorAngle.createVector2D(-angle1, 1);
@@ -51,5 +51,23 @@ public class VectorSplitter
 		Vector2D ev2=new Vector2D(-insection2.getX(), insection2.getY());
 		
 		return new Vector2D[]{ev1,ev2};
+	}
+	
+	public static Vector2D[] squareSplitVector2D(Vector2D v2d, double angle1, double angle2)
+	{
+		if(angle1+angle2!=90)
+		{
+			throw new IllegalArgumentException("angle1 + angle2 is not 90");
+		}
+		
+		Vector2D ev1=VectorAngle.createVector2D(90-angle1, v2d.getY()*Math.cos(toRad(angle2)));
+		Vector2D ev2=VectorAngle.createVector2D(-90+angle2, v2d.getY()*Math.cos(toRad(angle1)));
+		
+		return new Vector2D[]{ev1,ev2};
+	}
+	
+	private static double toRad(double angle)
+	{
+		return (angle/360)*2*Math.PI;
 	}
 }
