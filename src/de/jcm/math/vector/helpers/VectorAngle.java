@@ -75,9 +75,4 @@ public class VectorAngle
 	{
 		return (rad/Math.PI)*180;
 	}
-	
-	public static double AngleYtoAngleX(double a)
-	{
-		return 90-a;
-	}
 }
