@@ -10,8 +10,8 @@ public class Test1
 	public static void main(String[] args) 
 	{
 		double y=10;
-		double angle1=60;
-		double angle2=30;
+		double angle1=40;
+		double angle2=50;
 		
 		Vector2D v2d=VectorAngle.createVector2D(0, y);
 
