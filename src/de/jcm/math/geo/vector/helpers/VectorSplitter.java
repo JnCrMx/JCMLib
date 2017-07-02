@@ -1,8 +1,8 @@
-package de.jcm.math.vector.helpers;
+package de.jcm.math.geo.vector.helpers;
 
-import de.jcm.math.Point2D;
-import de.jcm.math.functions.LinearFunction;
-import de.jcm.math.vector.Vector2D;
+import de.jcm.math.geo.Point2D;
+import de.jcm.math.geo.functions.LinearFunction;
+import de.jcm.math.geo.vector.Vector2D;
 
 public class VectorSplitter 
 {
@@ -21,10 +21,10 @@ public class VectorSplitter
 	 * @param angle2 Second angle
 	 * @return An array of vectors
 	 * 
-	 * @see de.jcm.math.vector.Vector2D
-	 * @see de.jcm.math.vector.helpers.VectorFunction
-	 * @see de.jcm.math.functions.LinearFunction
-	 * @see de.jcm.math.functions.LinearFunction#getIntersection(de.jcm.math.functions.Function)
+	 * @see de.jcm.math.geo.vector.Vector2D
+	 * @see de.jcm.math.geo.vector.helpers.VectorFunction
+	 * @see de.jcm.math.geo.functions.LinearFunction
+	 * @see de.jcm.math.geo.functions.LinearFunction#getIntersection(de.jcm.math.geo.functions.Function)
 	 * 
 	 * @author JCM
 	 * @since 16.05.2017 18:57
@@ -75,7 +75,7 @@ public class VectorSplitter
 	 * @param angle2 Second angle
 	 * @return An array of vectors
 	 * 
-	 * @see de.jcm.math.vector.Vector2D
+	 * @see de.jcm.math.geo.vector.Vector2D
 	 * @see java.lang.Math#cos(double)
 	 * 
 	 * @author JCM

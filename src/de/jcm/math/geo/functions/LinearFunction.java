@@ -1,6 +1,6 @@
-package de.jcm.math.functions;
+package de.jcm.math.geo.functions;
 
-import de.jcm.math.Point2D;
+import de.jcm.math.geo.Point2D;
 
 public class LinearFunction extends Function
 {
@@ -47,7 +47,7 @@ public class LinearFunction extends Function
 	 * @param function Function to get intersection with
 	 * @return The intersection point
 	 * 
-	 * @see de.jcm.math.functions.LinearFunction#getAt(double)
+	 * @see de.jcm.math.geo.functions.LinearFunction#getAt(double)
 	 * 
 	 * @author JCM
 	 * @since 17.05.2017 19:58

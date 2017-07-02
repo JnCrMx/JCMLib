@@ -1,6 +1,6 @@
-package de.jcm.math.vector.helpers;
+package de.jcm.math.geo.vector.helpers;
 
-import de.jcm.math.vector.Vector2D;
+import de.jcm.math.geo.vector.Vector2D;
 
 public class VectorAngle
 {
@@ -11,8 +11,8 @@ public class VectorAngle
 	 * @param value Value of the vector
 	 * @return The created vector
 	 * 
-	 * @see de.jcm.math.vector.Vector2D
-	 * @see de.jcm.math.vector.Vector2D#Vector2D(double, double)
+	 * @see de.jcm.math.geo.vector.Vector2D
+	 * @see de.jcm.math.geo.vector.Vector2D#Vector2D(double, double)
 	 * 
 	 * @author JCM
 	 * @since 22.11.2016 19:44
@@ -33,8 +33,8 @@ public class VectorAngle
 	 * @param v2d Vector to get the angle from
 	 * @return Angle of the vector
 	 * 
-	 * @see de.jcm.math.vector.Vector2D
-	 * @see de.jcm.math.vector.helpers.VectorAngle#getValueByVector2D(Vector2D)
+	 * @see de.jcm.math.geo.vector.Vector2D
+	 * @see de.jcm.math.geo.vector.helpers.VectorAngle#getValueByVector2D(Vector2D)
 	 * 
 	 * @author JCM
 	 * @since 22.11.2016 19:46
@@ -54,8 +54,8 @@ public class VectorAngle
 	 * @param v2d Vector to get the value from
 	 * @return Value of the vector
 	 * 
-	 * @see de.jcm.math.vector.Vector2D
-	 * @see de.jcm.math.vector.helpers.VectorAngle#getAngleByVector2D(Vector2D)
+	 * @see de.jcm.math.geo.vector.Vector2D
+	 * @see de.jcm.math.geo.vector.helpers.VectorAngle#getAngleByVector2D(Vector2D)
 	 * 
 	 * @author JCM
 	 * @since 22.11.2016 19:46
