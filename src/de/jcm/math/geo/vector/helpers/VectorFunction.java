@@ -7,15 +7,17 @@ public class VectorFunction
 	/**
 	 * Generates a pitch value from a vector
 	 * 
-	 * @param v2d Vector to get pitch from
+	 * @param v2d
+	 *            Vector to get pitch from
 	 * @return
 	 * 
 	 * @see de.jcm.math.geo.vector.Vector2D
 	 * @see de.jcm.math.geo.functions.LinearFunction
-	 * @see de.jcm.math.geo.functions.LinearFunction#LinearFunction(double, double)
+	 * @see de.jcm.math.geo.functions.LinearFunction#LinearFunction(double,
+	 *      double)
 	 */
 	public static double getPitch(Vector2D v2d)
 	{
-		return v2d.getY()/v2d.getX();
+		return v2d.getY() / v2d.getX();
 	}
 }

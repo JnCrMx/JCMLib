@@ -1,22 +1,24 @@
 package de.jcm.math.geo.vector;
 
-public class Vector2D 
+public class Vector2D
 {
-	private double x,y;
-	
+	private double x, y;
+
 	/**
 	 * Constructs a vector with a position on the x and on on the y axis.
 	 * 
-	 * @param x Position on x axis
-	 * @param y Position on y axis
+	 * @param x
+	 *            Position on x axis
+	 * @param y
+	 *            Position on y axis
 	 * 
 	 * @author JCM
 	 * @since 22.11.2016 19:38
 	 */
-	public Vector2D(double x,double y) 
+	public Vector2D(double x, double y)
 	{
-		this.x=x;
-		this.y=y;
+		this.x = x;
+		this.y = y;
 	}
 
 	/**
@@ -29,7 +31,8 @@ public class Vector2D
 	 * @author JCM
 	 * @since 22.11.2016 19:36
 	 */
-	public double getX() {
+	public double getX()
+	{
 		return x;
 	}
 
@@ -43,15 +46,17 @@ public class Vector2D
 	 * @author JCM
 	 * @since 22.11.2016 19:36
 	 */
-	public double getY() {
+	public double getY()
+	{
 		return y;
 	}
-	
+
 	/**
-	 * Increases the vector by another vector.
-	 * Returns itself, but apply the changes to itself, not only to the returned object.
+	 * Increases the vector by another vector. Returns itself, but apply the
+	 * changes to itself, not only to the returned object.
 	 * 
-	 * @param v2d The vector to increase
+	 * @param v2d
+	 *            The vector to increase
 	 * 
 	 * @return Itself
 	 * 
@@ -62,17 +67,19 @@ public class Vector2D
 	 */
 	public Vector2D add(Vector2D v2d)
 	{
-		this.x=this.x+v2d.x;
-		this.y=this.y+v2d.y;
+		this.x = this.x + v2d.x;
+		this.y = this.y + v2d.y;
 		return this;
 	}
-	
+
 	/**
-	 * Increases the vector by x and y.
-	 * Returns itself, but apply the changes to itself, not only to the returned object.
+	 * Increases the vector by x and y. Returns itself, but apply the changes to
+	 * itself, not only to the returned object.
 	 * 
-	 * @param x The value to increase the vector on x axis
-	 * @param y The value to increase the vector on y axis
+	 * @param x
+	 *            The value to increase the vector on x axis
+	 * @param y
+	 *            The value to increase the vector on y axis
 	 * 
 	 * @return Itself
 	 * 
@@ -81,19 +88,19 @@ public class Vector2D
 	 * @author JCM
 	 * @since 22.11.2016 19:30
 	 */
-	public Vector2D add(double x,double y)
+	public Vector2D add(double x, double y)
 	{
-		this.x=this.x+x;
-		this.y=this.y+y;
+		this.x = this.x + x;
+		this.y = this.y + y;
 		return this;
 	}
-	
-	
+
 	/**
-	 * Decreases the vector by another vector.
-	 * Returns itself, but apply the changes to itself, not only to the returned object.
+	 * Decreases the vector by another vector. Returns itself, but apply the
+	 * changes to itself, not only to the returned object.
 	 * 
-	 * @param v2d The vector to decrease
+	 * @param v2d
+	 *            The vector to decrease
 	 * 
 	 * @return Itself
 	 * 
@@ -104,17 +111,19 @@ public class Vector2D
 	 */
 	public Vector2D substract(Vector2D v2d)
 	{
-		this.x=this.x-v2d.x;
-		this.y=this.y-v2d.y;
+		this.x = this.x - v2d.x;
+		this.y = this.y - v2d.y;
 		return this;
 	}
-	
+
 	/**
-	 * Decreases the vector by x and y.
-	 * Returns itself, but apply the changes to itself, not only to the returned object.
+	 * Decreases the vector by x and y. Returns itself, but apply the changes to
+	 * itself, not only to the returned object.
 	 * 
-	 * @param x The value to decrease the vector on x axis
-	 * @param y The value to decrease the vector on y axis
+	 * @param x
+	 *            The value to decrease the vector on x axis
+	 * @param y
+	 *            The value to decrease the vector on y axis
 	 * 
 	 * @return Itself
 	 * 
@@ -123,20 +132,21 @@ public class Vector2D
 	 * @author JCM
 	 * @since 22.11.2016 19:30
 	 */
-	public Vector2D substract(double x,double y)
+	public Vector2D substract(double x, double y)
 	{
-		this.x=this.x-x;
-		this.y=this.y-y;
+		this.x = this.x - x;
+		this.y = this.y - y;
 		return this;
 	}
 
-	public void setX(double x) {
+	public void setX(double x)
+	{
 		this.x = x;
 	}
 
-	public void setY(double y) {
+	public void setY(double y)
+	{
 		this.y = y;
 	}
-	
-	
+
 }
