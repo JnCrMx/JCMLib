@@ -18,6 +18,14 @@ public class Request {
 		this.authGiven = authGiven;
 		this.authArguments = authArguments;
 	}
+	
+	public Request(String methodName, Object[] arguments, boolean authGiven, Object[] authArguments) {
+		this.socket=null;
+		this.methodName = methodName;
+		this.arguments = arguments;
+		this.authGiven = authGiven;
+		this.authArguments = authArguments;
+	}
 
 	public String getMethodName() {
 		return methodName;
