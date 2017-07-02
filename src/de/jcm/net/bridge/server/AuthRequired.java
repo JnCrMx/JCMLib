@@ -9,12 +9,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface AuthRequired 
 {
-	AuthMethodType type();
 	String auth();
-	
-	public static enum AuthMethodType
-	{
-		TOKEN,
-		ALWAYS_AGAIN
-	}
 }
