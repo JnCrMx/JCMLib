@@ -156,6 +156,38 @@ public class NetworkHelper
 				out.writeByte(7);
 				NetworkHelper.writeString(out, (String)field, StandardCharsets.UTF_8);
 			}
+			else if(field.getClass()==Boolean[].class)
+			{
+				writeArray(out, 10, ((Boolean[])field));
+			}
+			else if(field.getClass()==Byte[].class)
+			{
+				writeArray(out, 11, ((Byte[])field));
+			}
+			else if(field.getClass()==Character[].class)
+			{
+				writeArray(out, 12, ((Character[])field));
+			}
+			else if(field.getClass()==Integer[].class)
+			{
+				writeArray(out, 13, ((Integer[])field));
+			}
+			else if(field.getClass()==Long[].class)
+			{
+				writeArray(out, 14, ((Long[])field));
+			}
+			else if(field.getClass()==Float[].class)
+			{
+				writeArray(out, 15, ((Float[])field));
+			}
+			else if(field.getClass()==Double[].class)
+			{
+				writeArray(out, 16, ((Double[])field));
+			}
+			else if(field.getClass()==String[].class)
+			{
+				writeArray(out, 17, ((String[])field));
+			}
 			else
 			{
 				out.writeByte(-1);
@@ -164,6 +196,51 @@ public class NetworkHelper
 		else
 		{
 			out.writeByte(-1);
+		}
+	}
+	
+	public static void writeArray(DataOutputStream out, int type, Object[] array) throws IOException
+	{
+		out.writeByte(type);
+		
+		int size=array.length;
+		out.writeInt(size);
+		
+		for(int i=0;i<size;i++)
+		{
+			Object field=array[i];
+			if(type==10)
+			{
+				out.writeBoolean((Boolean) field);
+			}
+			else if(type==11)
+			{
+				out.writeByte((Byte) field);
+			}
+			else if(type==12)
+			{
+				out.writeChar((Character)field);
+			}
+			else if(type==13)
+			{
+				out.writeInt((Integer)field);
+			}
+			else if(type==14)
+			{
+				out.writeLong((Long)field);
+			}
+			else if(type==15)
+			{
+				out.writeFloat((Float)field);
+			}
+			else if(type==16)
+			{
+				out.writeDouble((Double)field);
+			}
+			else if(type==17)
+			{
+				NetworkHelper.writeString(out, (String)field, StandardCharsets.UTF_8);
+			}
 		}
 	}
 

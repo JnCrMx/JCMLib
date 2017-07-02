@@ -15,7 +15,6 @@ import java.util.Arrays;
 import de.jcm.net.NetworkHelper;
 import de.jcm.net.bridge.Answer;
 import de.jcm.net.bridge.Request;
-import de.jcm.net.bridge.server.AuthRequired.AuthMethodType;
 
 public class BridgeServer 
 {
@@ -51,7 +50,7 @@ public class BridgeServer
 		}
 		else
 		{
-			throw new IllegalStateException("Socket not open");
+			throw new IllegalStateException("Socket not opened");
 		}
 	}
 	
@@ -194,6 +193,10 @@ public class BridgeServer
 						Object reponse=method.invoke(object, args);
 						return new Answer(true, reponse);
 					}
+					catch (IllegalAccessException e)
+					{
+						return new Answer(false, null, "This method is not accessible");
+					}
 					catch (Exception e) 
 					{
 						return new Answer(false, null, "Exception while executing method: "+e.getCause());
@@ -243,77 +246,31 @@ public class BridgeServer
 				if(!request.isAuthGiven())
 					return false;
 				
-				if(auth.type()==AuthMethodType.TOKEN)
+				Class<?> authClass=Class.forName(auth.auth());
+				try
 				{
-					if(request.getAuthArguments().length==1)
+					Method instance=authClass.getMethod("instance", new Class[0]);
+					if(instance!=null)
 					{
-						if(request.getAuthArguments()[0] instanceof byte[])
+						if(Modifier.isStatic(instance.getModifiers()))
 						{
-							Class<?> authClass=Class.forName(auth.auth());
-							try
+							if(instance.getReturnType()==authClass)
 							{
-								Method instance=authClass.getMethod("instance", new Class[0]);
-								if(instance!=null)
-								{
-									if(Modifier.isStatic(instance.getModifiers()))
-									{
-										if(instance.getReturnType()==authClass)
-										{
-											AuthMethodToken authMethod=(AuthMethodToken) instance.invoke(null, new Object[0]);
-											return authMethod.isTokenValid((byte[]) request.getAuthArguments()[0]);
-										}
-									}
-								}
-								else
-								{
-									AuthMethodToken authMethod=(AuthMethodToken) Class.forName(auth.auth()).newInstance();
-									return authMethod.isTokenValid((byte[]) request.getAuthArguments()[0]);
-								}
-							}
-							catch (Exception e) 
-							{
-								AuthMethodToken authMethod=(AuthMethodToken) Class.forName(auth.auth()).newInstance();
-								return authMethod.isTokenValid((byte[]) request.getAuthArguments()[0]);
+								AuthMethod authMethod=(AuthMethod) instance.invoke(null, new Object[0]);
+								return authMethod.auth(request.getAuthArguments());
 							}
 						}
 					}
-					return false;
+					else
+					{
+						AuthMethod authMethod=(AuthMethod) Class.forName(auth.auth()).newInstance();
+						return authMethod.auth(request.getAuthArguments());
+					}
 				}
-				else if(auth.type()==AuthMethodType.ALWAYS_AGAIN)
+				catch (Exception e) 
 				{
-					if(request.getAuthArguments().length==2)
-					{
-						if(request.getAuthArguments()[0] instanceof String && request.getAuthArguments()[1] instanceof String)
-						{
-							Class<?> authClass=Class.forName(auth.auth());
-							try
-							{
-								Method instance=authClass.getMethod("instance", new Class[0]);
-								if(instance!=null)
-								{
-									if(Modifier.isStatic(instance.getModifiers()))
-									{
-										if(instance.getReturnType()==authClass)
-										{
-											AuthMethodAlwayAgain authMethod=(AuthMethodAlwayAgain) instance.invoke(null, new Object[0]);
-											return authMethod.auth((String)request.getAuthArguments()[0], (String)request.getAuthArguments()[1]);
-										}
-									}
-								}
-								else
-								{
-									AuthMethodAlwayAgain authMethod=(AuthMethodAlwayAgain) Class.forName(auth.auth()).newInstance();
-									return authMethod.auth((String)request.getAuthArguments()[0], (String)request.getAuthArguments()[1]);
-								}
-							}
-							catch (Exception e)
-							{
-								AuthMethodAlwayAgain authMethod=(AuthMethodAlwayAgain) Class.forName(auth.auth()).newInstance();
-								return authMethod.auth((String)request.getAuthArguments()[0], (String)request.getAuthArguments()[1]);
-							}
-						}
-					}
-					return false;
+					AuthMethod authMethod=(AuthMethod) Class.forName(auth.auth()).newInstance();
+					return authMethod.auth(request.getAuthArguments());
 				}
 			}
 		}

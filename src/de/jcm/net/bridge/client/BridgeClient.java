@@ -58,6 +58,7 @@ public class BridgeClient
 		}
 		catch(Exception e)
 		{	
+			e.printStackTrace();
 			answer=new Answer(false, null, "Network error: "+e.toString()); 
 		}
 		return answer;
