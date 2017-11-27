@@ -4,6 +4,9 @@ import de.jcm.math.geo.vector.Vector2D;
 
 public class VectorAngle
 {
+	/** Don't let anyone instantiate this class */
+	private VectorAngle() {}
+	
 	/**
 	 * Creates a vector from angle and value.
 	 * 
@@ -70,13 +73,13 @@ public class VectorAngle
 		return value;
 	}
 
-	private static double toRad(double angle)
-	{
-		return (angle / 360) * 2 * Math.PI;
-	}
-
 	private static double toDeg(double rad)
 	{
 		return (rad / Math.PI) * 180;
+	}
+
+	private static double toRad(double angle)
+	{
+		return (angle / 360) * 2 * Math.PI;
 	}
 }

@@ -6,6 +6,21 @@ import java.net.InetSocketAddress;
 
 public class UDPHelper
 {
+	/** Don't let anyone instantiate this class */
+	private UDPHelper() {}
+	
+	public static void arduinoSleep()
+	{
+		try
+		{
+			Thread.sleep(2500);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 	public static byte[] request(DatagramSocket sck, InetSocketAddress to, byte[] req, boolean debug) throws Exception
 	{
 		long time1 = System.currentTimeMillis();
@@ -24,18 +39,5 @@ public class UDPHelper
 	{
 		DatagramPacket send = new DatagramPacket(req, req.length, to);
 		sck.send(send);
-	}
-
-	public static void arduinoSleep()
-	{
-		try
-		{
-			Thread.sleep(2500);
-		}
-		catch (InterruptedException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

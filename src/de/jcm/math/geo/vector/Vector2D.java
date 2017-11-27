@@ -22,6 +22,50 @@ public class Vector2D
 	}
 
 	/**
+	 * Increases the vector by x and y. Returns itself, but apply the changes to
+	 * itself, not only to the returned object.
+	 * 
+	 * @param x
+	 *            The value to increase the vector on x axis
+	 * @param y
+	 *            The value to increase the vector on y axis
+	 * 
+	 * @return Itself
+	 * 
+	 * @see de.jcm.math.geo.vector.Vector2D#add(Vector2D)
+	 * 
+	 * @author JCM
+	 * @since 22.11.2016 19:30
+	 */
+	public Vector2D add(double x, double y)
+	{
+		this.x = this.x + x;
+		this.y = this.y + y;
+		return this;
+	}
+
+	/**
+	 * Increases the vector by another vector. Returns itself, but apply the
+	 * changes to itself, not only to the returned object.
+	 * 
+	 * @param v2d
+	 *            The vector to increase
+	 * 
+	 * @return Itself
+	 * 
+	 * @see de.jcm.math.geo.vector.Vector2D#add(double, double)
+	 * 
+	 * @author JCM
+	 * @since 22.11.2016 19:33
+	 */
+	public Vector2D add(Vector2D v2d)
+	{
+		this.x = this.x + v2d.x;
+		this.y = this.y + v2d.y;
+		return this;
+	}
+
+	/**
 	 * Returns the coordinate of the vector on the x axis.
 	 * 
 	 * @return The vector´s x value
@@ -51,69 +95,14 @@ public class Vector2D
 		return y;
 	}
 
-	/**
-	 * Increases the vector by another vector. Returns itself, but apply the
-	 * changes to itself, not only to the returned object.
-	 * 
-	 * @param v2d
-	 *            The vector to increase
-	 * 
-	 * @return Itself
-	 * 
-	 * @see de.jcm.math.geo.vector.Vector2D#add(double, double)
-	 * 
-	 * @author JCM
-	 * @since 22.11.2016 19:33
-	 */
-	public Vector2D add(Vector2D v2d)
+	public void setX(double x)
 	{
-		this.x = this.x + v2d.x;
-		this.y = this.y + v2d.y;
-		return this;
+		this.x = x;
 	}
 
-	/**
-	 * Increases the vector by x and y. Returns itself, but apply the changes to
-	 * itself, not only to the returned object.
-	 * 
-	 * @param x
-	 *            The value to increase the vector on x axis
-	 * @param y
-	 *            The value to increase the vector on y axis
-	 * 
-	 * @return Itself
-	 * 
-	 * @see de.jcm.math.geo.vector.Vector2D#add(Vector2D)
-	 * 
-	 * @author JCM
-	 * @since 22.11.2016 19:30
-	 */
-	public Vector2D add(double x, double y)
+	public void setY(double y)
 	{
-		this.x = this.x + x;
-		this.y = this.y + y;
-		return this;
-	}
-
-	/**
-	 * Decreases the vector by another vector. Returns itself, but apply the
-	 * changes to itself, not only to the returned object.
-	 * 
-	 * @param v2d
-	 *            The vector to decrease
-	 * 
-	 * @return Itself
-	 * 
-	 * @see de.jcm.math.geo.vector.Vector2D#remove(double, double)
-	 * 
-	 * @author JCM
-	 * @since 22.11.2016 19:34
-	 */
-	public Vector2D substract(Vector2D v2d)
-	{
-		this.x = this.x - v2d.x;
-		this.y = this.y - v2d.y;
-		return this;
+		this.y = y;
 	}
 
 	/**
@@ -127,7 +116,7 @@ public class Vector2D
 	 * 
 	 * @return Itself
 	 * 
-	 * @see de.jcm.math.geo.vector.Vector2D#remove(Vector2D)
+	 * @see de.jcm.math.geo.vector.Vector2D#substract(Vector2D)
 	 * 
 	 * @author JCM
 	 * @since 22.11.2016 19:30
@@ -139,14 +128,25 @@ public class Vector2D
 		return this;
 	}
 
-	public void setX(double x)
+	/**
+	 * Decreases the vector by another vector. Returns itself, but apply the
+	 * changes to itself, not only to the returned object.
+	 * 
+	 * @param v2d
+	 *            The vector to decrease
+	 * 
+	 * @return Itself
+	 * 
+	 * @see de.jcm.math.geo.vector.Vector2D#substract(double, double)
+	 * 
+	 * @author JCM
+	 * @since 22.11.2016 19:34
+	 */
+	public Vector2D substract(Vector2D v2d)
 	{
-		this.x = x;
-	}
-
-	public void setY(double y)
-	{
-		this.y = y;
+		this.x = this.x - v2d.x;
+		this.y = this.y - v2d.y;
+		return this;
 	}
 
 }

@@ -6,6 +6,9 @@ import de.jcm.math.geo.vector.Vector2D;
 
 public class VectorSplitter
 {
+	/** Don't let anyone instantiate this class */
+	private VectorSplitter() {}
+	
 	/**
 	 * Splits a vector in two by two angles using functions <br>
 	 * <b> No given angle may be bigger or same than 90 </b>
@@ -39,21 +42,18 @@ public class VectorSplitter
 		{
 			throw new IllegalArgumentException("an angle is bigger as 90 or is 90");
 		}
-
-		Vector2D par1 = VectorAngle.createVector2D(-angle1, 1);
-		Vector2D par2 = VectorAngle.createVector2D(-angle2, 1);
-
+		
 		Vector2D v1 = VectorAngle.createVector2D(angle1, 1);
 		Vector2D v2 = VectorAngle.createVector2D(angle2, 1);
 
-		double m1s1 = VectorFunction.getPitch(par1);
+		double m1s1 = -VectorFunction.getPitch(v1);
 		double m2s1 = VectorFunction.getPitch(v2);
 		LinearFunction f1s1 = new LinearFunction(m1s1, v2d.getY());
 		LinearFunction f2s1 = new LinearFunction(m2s1, 0);
 		Point2D insection1 = f1s1.getIntersection(f2s1);
 		Vector2D ev1 = new Vector2D(insection1.getX(), insection1.getY());
 
-		double m1s2 = VectorFunction.getPitch(par2);
+		double m1s2 = -VectorFunction.getPitch(v2);
 		double m2s2 = VectorFunction.getPitch(v1);
 		LinearFunction f1s2 = new LinearFunction(m1s2, v2d.getY());
 		LinearFunction f2s2 = new LinearFunction(m2s2, 0);

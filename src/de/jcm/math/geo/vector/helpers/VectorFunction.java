@@ -4,12 +4,15 @@ import de.jcm.math.geo.vector.Vector2D;
 
 public class VectorFunction
 {
+	/** Don't let anyone instantiate this class */
+	private VectorFunction() {}
+	
 	/**
 	 * Generates a pitch value from a vector
 	 * 
 	 * @param v2d
 	 *            Vector to get pitch from
-	 * @return
+	 * @return Pitch
 	 * 
 	 * @see de.jcm.math.geo.vector.Vector2D
 	 * @see de.jcm.math.geo.functions.LinearFunction
