@@ -21,18 +21,22 @@ public class Request
 		this.authArguments = authArguments;
 	}
 
-	public Request(String methodName, Object[] arguments, boolean authGiven, Object[] authArguments)
+	public Request(String methodName, Object[] arguments, Object[] authArguments)
 	{
 		this.socket = null;
 		this.methodName = methodName;
 		this.arguments = arguments;
-		this.authGiven = authGiven;
+		this.authGiven = true;
 		this.authArguments = authArguments;
 	}
-
-	public String getMethodName()
+	
+	public Request(String methodName, Object[] arguments)
 	{
-		return methodName;
+		this.socket = null;
+		this.methodName = methodName;
+		this.arguments = arguments;
+		this.authGiven = false;
+		this.authArguments=null;
 	}
 
 	public Object[] getArguments()
@@ -40,19 +44,24 @@ public class Request
 		return arguments;
 	}
 
-	public boolean isAuthGiven()
-	{
-		return authGiven;
-	}
-
 	public Object[] getAuthArguments()
 	{
 		return authArguments;
 	}
 
+	public String getMethodName()
+	{
+		return methodName;
+	}
+
 	public Socket getSocket()
 	{
 		return socket;
+	}
+
+	public boolean isAuthGiven()
+	{
+		return authGiven;
 	}
 
 }
