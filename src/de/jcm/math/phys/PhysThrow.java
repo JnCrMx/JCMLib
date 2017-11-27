@@ -4,9 +4,9 @@ import de.jcm.math.geo.Point2D;
 
 public class PhysThrow
 {
+	private static final double g = 9.80665;
 	private double angle;
 	private double velocity0;
-	private static final double g = 9.80665;
 
 	public PhysThrow(double angle, double velocity0)
 	{
@@ -14,14 +14,9 @@ public class PhysThrow
 		this.velocity0 = velocity0;
 	}
 
-	public double getLenghtAtTime(double time)
+	public double getAngle()
 	{
-		return velocity0 * Math.cos(angle) * time;
-	}
-
-	public double getHeightAtTime(double time)
-	{
-		return ((-g * time * time) / 2) + (velocity0 * Math.sin(angle) * time);
+		return Math.toDegrees(angle);
 	}
 
 	public Point2D getEndPoint()
@@ -42,9 +37,14 @@ public class PhysThrow
 		return z / n;
 	}
 
-	public double getAngle()
+	public double getHeightAtTime(double time)
 	{
-		return Math.toDegrees(angle);
+		return ((-g * time * time) / 2) + (velocity0 * Math.sin(angle) * time);
+	}
+
+	public double getLenghtAtTime(double time)
+	{
+		return velocity0 * Math.cos(angle) * time;
 	}
 
 	public double getVelocity0()
