@@ -6,13 +6,6 @@ public class Answer
 	private Object response;
 	private String error;
 
-	public Answer(boolean success, Object response, String error)
-	{
-		this.success = success;
-		this.response = response;
-		this.error = error;
-	}
-
 	public Answer(boolean success, Object response)
 	{
 		this.success = success;
@@ -20,9 +13,16 @@ public class Answer
 		this.error = "";
 	}
 
-	public boolean isSuccess()
+	public Answer(boolean success, Object response, String error)
 	{
-		return success;
+		this.success = success;
+		this.response = response;
+		this.error = error;
+	}
+
+	public String getError()
+	{
+		return error;
 	}
 
 	public Object getResponse()
@@ -30,9 +30,9 @@ public class Answer
 		return response;
 	}
 
-	public String getError()
+	public boolean isSuccess()
 	{
-		return error;
+		return success;
 	}
 
 }
