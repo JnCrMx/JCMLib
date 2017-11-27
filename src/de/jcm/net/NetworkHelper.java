@@ -8,29 +8,59 @@ import java.nio.charset.StandardCharsets;
 
 public class NetworkHelper
 {
+	/** Don't let anyone instantiate this class */
+	private NetworkHelper() {}
 
-	public static void writeString(DataOutputStream out, String string, Charset charset) throws IOException
+	public static Boolean[] readBooleanArray(DataInputStream in) throws IOException
 	{
-		byte[] bytes = string.getBytes(charset);
-		out.writeInt(bytes.length);
-		out.write(bytes);
+		int count = in.readInt();
+		Boolean[] booleans = new Boolean[count];
+
+		for (int i = 0; i < count; i++)
+		{
+			booleans[i] = (Boolean) in.readBoolean();
+		}
+
+		return booleans;
 	}
 
-	public static String readString(DataInputStream input) throws IOException
+	public static Byte[] readByteArray(DataInputStream in) throws IOException
 	{
-		int lenght = input.readInt();
-		byte[] bytes = new byte[lenght];
-		input.read(bytes, 0, lenght);
+		int count = in.readInt();
+		Byte[] bytes = new Byte[count];
 
-		return new String(bytes);
+		for (int i = 0; i < count; i++)
+		{
+			bytes[i] = (Byte) in.readByte();
+		}
+
+		return bytes;
 	}
 
-	public static String readString(DataInputStream input, int lenght) throws IOException
+	public static Character[] readCharArray(DataInputStream in) throws IOException
 	{
-		byte[] bytes = new byte[lenght];
-		input.read(bytes, 0, lenght);
+		int count = in.readInt();
+		Character[] chars = new Character[count];
 
-		return new String(bytes);
+		for (int i = 0; i < count; i++)
+		{
+			chars[i] = (Character) in.readChar();
+		}
+
+		return chars;
+	}
+
+	public static Double[] readDoubleArray(DataInputStream in) throws IOException
+	{
+		int count = in.readInt();
+		Double[] doubles = new Double[count];
+
+		for (int i = 0; i < count; i++)
+		{
+			doubles[i] = (Double) in.readDouble();
+		}
+
+		return doubles;
 	}
 
 	public static Object readField(DataInputStream in) throws IOException
@@ -110,6 +140,133 @@ public class NetworkHelper
 		}
 
 		return field;
+	}
+
+	public static Object[] readFields(DataInputStream in) throws IOException
+	{
+		int argumentCount = in.readInt();
+		Object[] arguments = new Object[argumentCount];
+
+		for (int i = 0; i < argumentCount; i++)
+		{
+			arguments[i] = readField(in);
+		}
+
+		return arguments;
+	}
+
+	public static Float[] readFloatArray(DataInputStream in) throws IOException
+	{
+		int count = in.readInt();
+		Float[] floats = new Float[count];
+
+		for (int i = 0; i < count; i++)
+		{
+			floats[i] = (Float) in.readFloat();
+		}
+
+		return floats;
+	}
+
+	public static Integer[] readIntArray(DataInputStream in) throws IOException
+	{
+		int count = in.readInt();
+		Integer[] ints = new Integer[count];
+
+		for (int i = 0; i < count; i++)
+		{
+			ints[i] = (Integer) in.readInt();
+		}
+
+		return ints;
+	}
+
+	public static Long[] readLongArray(DataInputStream in) throws IOException
+	{
+		int count = in.readInt();
+		Long[] longs = new Long[count];
+
+		for (int i = 0; i < count; i++)
+		{
+			longs[i] = (Long) in.readLong();
+		}
+
+		return longs;
+	}
+
+	public static String readString(DataInputStream input) throws IOException
+	{
+		int lenght = input.readInt();
+		byte[] bytes = new byte[lenght];
+		input.read(bytes, 0, lenght);
+
+		return new String(bytes);
+	}
+
+	public static String readString(DataInputStream input, int lenght) throws IOException
+	{
+		byte[] bytes = new byte[lenght];
+		input.read(bytes, 0, lenght);
+
+		return new String(bytes);
+	}
+
+	public static String[] readStringArray(DataInputStream in) throws IOException
+	{
+		int count = in.readInt();
+		String[] strings = new String[count];
+
+		for (int i = 0; i < count; i++)
+		{
+			strings[i] = NetworkHelper.readString(in);
+		}
+
+		return strings;
+	}
+
+	public static void writeArray(DataOutputStream out, int type, Object[] array) throws IOException
+	{
+		out.writeByte(type);
+
+		int size = array.length;
+		out.writeInt(size);
+
+		for (int i = 0; i < size; i++)
+		{
+			Object field = array[i];
+			if (type == 10)
+			{
+				out.writeBoolean((Boolean) field);
+			}
+			else if (type == 11)
+			{
+				out.writeByte((Byte) field);
+			}
+			else if (type == 12)
+			{
+				out.writeChar((Character) field);
+			}
+			else if (type == 13)
+			{
+				out.writeInt((Integer) field);
+			}
+			else if (type == 14)
+			{
+				out.writeLong((Long) field);
+			}
+			else if (type == 15)
+			{
+				out.writeFloat((Float) field);
+			}
+			else if (type == 16)
+			{
+				out.writeDouble((Double) field);
+			}
+			else if (type == 17)
+			{
+				NetworkHelper.writeString(out, (String) field, StandardCharsets.UTF_8);
+			}
+		}
 	}
 
 	public static void writeField(DataOutputStream out, Object field) throws IOException
@@ -199,51 +356,6 @@ public class NetworkHelper
 		}
 	}
 
-	public static void writeArray(DataOutputStream out, int type, Object[] array) throws IOException
-	{
-		out.writeByte(type);
-
-		int size = array.length;
-		out.writeInt(size);
-
-		for (int i = 0; i < size; i++)
-		{
-			Object field = array[i];
-			if (type == 10)
-			{
-				out.writeBoolean((Boolean) field);
-			}
-			else if (type == 11)
-			{
-				out.writeByte((Byte) field);
-			}
-			else if (type == 12)
-			{
-				out.writeChar((Character) field);
-			}
-			else if (type == 13)
-			{
-				out.writeInt((Integer) field);
-			}
-			else if (type == 14)
-			{
-				out.writeLong((Long) field);
-			}
-			else if (type == 15)
-			{
-				out.writeFloat((Float) field);
-			}
-			else if (type == 16)
-			{
-				out.writeDouble((Double) field);
-			}
-			else if (type == 17)
-			{
-				NetworkHelper.writeString(out, (String) field, StandardCharsets.UTF_8);
-			}
-		}
-	}
-
 	public static void writeFields(DataOutputStream out, Object[] fields) throws IOException
 	{
 		int count = fields.length;
@@ -255,120 +367,10 @@ public class NetworkHelper
 		}
 	}
 
-	public static Object[] readFields(DataInputStream in) throws IOException
+	public static void writeString(DataOutputStream out, String string, Charset charset) throws IOException
 	{
-		int argumentCount = in.readInt();
-		Object[] arguments = new Object[argumentCount];
-
-		for (int i = 0; i < argumentCount; i++)
-		{
-			arguments[i] = readField(in);
-		}
-
-		return arguments;
-	}
-
-	public static Boolean[] readBooleanArray(DataInputStream in) throws IOException
-	{
-		int count = in.readInt();
-		Boolean[] booleans = new Boolean[count];
-
-		for (int i = 0; i < count; i++)
-		{
-			booleans[i] = (Boolean) in.readBoolean();
-		}
-
-		return booleans;
-	}
-
-	public static Byte[] readByteArray(DataInputStream in) throws IOException
-	{
-		int count = in.readInt();
-		Byte[] bytes = new Byte[count];
-
-		for (int i = 0; i < count; i++)
-		{
-			bytes[i] = (Byte) in.readByte();
-		}
-
-		return bytes;
-	}
-
-	public static Character[] readCharArray(DataInputStream in) throws IOException
-	{
-		int count = in.readInt();
-		Character[] chars = new Character[count];
-
-		for (int i = 0; i < count; i++)
-		{
-			chars[i] = (Character) in.readChar();
-		}
-
-		return chars;
-	}
-
-	public static Integer[] readIntArray(DataInputStream in) throws IOException
-	{
-		int count = in.readInt();
-		Integer[] ints = new Integer[count];
-
-		for (int i = 0; i < count; i++)
-		{
-			ints[i] = (Integer) in.readInt();
-		}
-
-		return ints;
-	}
-
-	public static Long[] readLongArray(DataInputStream in) throws IOException
-	{
-		int count = in.readInt();
-		Long[] longs = new Long[count];
-
-		for (int i = 0; i < count; i++)
-		{
-			longs[i] = (Long) in.readLong();
-		}
-
-		return longs;
-	}
-
-	public static Float[] readFloatArray(DataInputStream in) throws IOException
-	{
-		int count = in.readInt();
-		Float[] floats = new Float[count];
-
-		for (int i = 0; i < count; i++)
-		{
-			floats[i] = (Float) in.readFloat();
-		}
-
-		return floats;
-	}
-
-	public static Double[] readDoubleArray(DataInputStream in) throws IOException
-	{
-		int count = in.readInt();
-		Double[] doubles = new Double[count];
-
-		for (int i = 0; i < count; i++)
-		{
-			doubles[i] = (Double) in.readDouble();
-		}
-
-		return doubles;
-	}
-
-	public static String[] readStringArray(DataInputStream in) throws IOException
-	{
-		int count = in.readInt();
-		String[] strings = new String[count];
-
-		for (int i = 0; i < count; i++)
-		{
-			strings[i] = NetworkHelper.readString(in);
-		}
-
-		return strings;
+		byte[] bytes = string.getBytes(charset);
+		out.writeInt(bytes.length);
+		out.write(bytes);
 	}
 }
