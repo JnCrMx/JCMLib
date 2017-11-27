@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import de.jcm.image.compare.ImageCompareProperties.IamgeCompareTransformMode;
 import de.jcm.image.compare.ImageCompareProperties.ImageCompareMethod;
 
+@Deprecated
 public class ImageCompare
 {
 	private ImageCompareMethod method;

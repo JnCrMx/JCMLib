@@ -1,5 +1,6 @@
 package de.jcm.math.geo.vector;
 
+@Deprecated
 public class Vector3D
 {
 	private double x, y, z;
