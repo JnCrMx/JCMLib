@@ -30,6 +30,41 @@ public class JImageButton extends JButton
 	}
 
 	@Override
+	public boolean isFocusable()
+	{
+		return true;
+	}
+
+	@Override
+	protected void paintBorder(Graphics g)
+	{
+		ButtonModel model = this.getModel();
+
+		int w = getSize().width;
+		int h = getSize().height;
+
+		if (model.isPressed())
+			g.setColor(new Color(0, 84, 135));
+		else if (model.isRollover())
+			g.setColor(new Color(0, 120, 215));
+		else
+			g.setColor(new Color(173, 173, 173));
+
+		g.drawRect(1, 1, w - 3, h - 3);
+
+		if (model.isPressed())
+		{
+			Graphics2D g2d = (Graphics2D) g.create();
+
+			Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[] { 1 }, 0);
+			g2d.setStroke(dashed);
+			g2d.drawRect(3, 3, w - 7, h - 7);
+
+			g2d.dispose();
+		}
+	}
+
+	@Override
 	protected void paintComponent(Graphics g)
 	{
 		ButtonModel model = this.getModel();
@@ -90,41 +125,6 @@ public class JImageButton extends JButton
 			int th = (int) g.getFont().getStringBounds(text, g.getFontMetrics().getFontRenderContext()).getHeight();
 
 			g.drawString(text, w / 2 - tw / 2, y + (int) (h / 1.7) + th);
-		}
-	}
-
-	@Override
-	public boolean isFocusable()
-	{
-		return true;
-	}
-
-	@Override
-	protected void paintBorder(Graphics g)
-	{
-		ButtonModel model = this.getModel();
-
-		int w = getSize().width;
-		int h = getSize().height;
-
-		if (model.isPressed())
-			g.setColor(new Color(0, 84, 135));
-		else if (model.isRollover())
-			g.setColor(new Color(0, 120, 215));
-		else
-			g.setColor(new Color(173, 173, 173));
-
-		g.drawRect(1, 1, w - 3, h - 3);
-
-		if (model.isPressed())
-		{
-			Graphics2D g2d = (Graphics2D) g.create();
-
-			Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[] { 1 }, 0);
-			g2d.setStroke(dashed);
-			g2d.drawRect(3, 3, w - 7, h - 7);
-
-			g2d.dispose();
 		}
 	}
 }
