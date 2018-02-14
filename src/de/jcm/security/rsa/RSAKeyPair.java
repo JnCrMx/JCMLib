@@ -57,7 +57,7 @@ public class RSAKeyPair
 		
 		BigInteger modulo=p.multiply(q);
 		BigInteger phi=(p.subtract(BigInteger.ONE)).multiply((q.subtract(BigInteger.ONE)));
-		BigInteger e=new BigInteger(bits-2, Integer.MAX_VALUE, random);
+		BigInteger e=BigInteger.valueOf(65537L);
 		
 		RSAPublicKey publicKey=new RSAPublicKey(modulo, e);
 		

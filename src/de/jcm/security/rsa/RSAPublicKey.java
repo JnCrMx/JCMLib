@@ -49,7 +49,12 @@ public class RSAPublicKey
 	
 	public BigInteger encrypt(BigInteger src)
 	{
-		return src.modPow(exponent, modulo);
+		BigInteger bigInt = src.modPow(exponent, modulo);
+		
+		if(bigInt.compareTo(src)==0)
+			throw new IllegalArgumentException("could not encrypt");
+		
+		return bigInt;
 	}
 	
 	public byte[] encrypt(byte[] bytes)
