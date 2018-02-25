@@ -55,7 +55,7 @@ public class RSAPrivateKey
 	
 	public byte[] decrypt(byte[] bytes)
 	{
-		int bits=modulo.bitLength();
+		int bits=modulo.bitLength()-1;
 
 		int len=(int) Math.ceil(((double)bits)/8.0);
 		int count=(int) Math.ceil(((double)bytes.length)/((double)len));

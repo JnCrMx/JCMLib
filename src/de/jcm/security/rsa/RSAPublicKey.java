@@ -59,7 +59,7 @@ public class RSAPublicKey
 	
 	public byte[] encrypt(byte[] bytes)
 	{
-		int bits=modulo.bitLength()-64;
+		int bits=modulo.bitLength()-1;
 
 		ByteArrayOutputStream encrypted=new ByteArrayOutputStream();
 		
@@ -102,8 +102,7 @@ public class RSAPublicKey
 //				System.out.println(bts.length);
 //			else
 //				System.err.println(bts.length);
-			
-			byte[] bts2=new byte[256];	//???
+			byte[] bts2=new byte[len+1];	//???
 			for(int j=bts.length;j>0;j--)
 				bts2[bts2.length-j]=bts[bts.length-j];
 			
