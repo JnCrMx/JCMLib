@@ -3,6 +3,7 @@ package de.jcm.net;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -202,6 +203,18 @@ public class NetworkHelper
 
 		return new String(bytes);
 	}
+	
+	public static String readVarString(DataInputStream in) throws IOException
+	{
+		int length = readVarInt(in);
+		return readString(in, length);
+	}
+	
+	public static String readVarString(ByteBuffer buffer) throws IOException
+	{
+		int length = readVarInt(buffer);
+		return readString(buffer, length);
+	}
 
 	public static String readString(DataInputStream input, int lenght) throws IOException
 	{
@@ -209,6 +222,25 @@ public class NetworkHelper
 		input.read(bytes, 0, lenght);
 
 		return new String(bytes);
+	}
+	
+	public static String readString(ByteBuffer input, int lenght) throws IOException
+	{
+		byte[] bytes = new byte[lenght];
+		input.get(bytes, 0, lenght);
+
+		return new String(bytes);
+	}
+	
+	public static String readUCS2String(ByteBuffer input, int lenght) throws IOException
+	{
+		String str="";
+		for(int i=0;i<lenght;i+=2)
+		{
+			str+=input.getChar();
+		}
+
+		return str;
 	}
 
 	public static String[] readStringArray(DataInputStream in) throws IOException
@@ -372,5 +404,74 @@ public class NetworkHelper
 		byte[] bytes = string.getBytes(charset);
 		out.writeInt(bytes.length);
 		out.write(bytes);
+	}
+	
+	public static void writeString(DataOutputStream out, String string) throws IOException
+	{
+		byte[] bytes = string.getBytes();
+		out.writeInt(bytes.length);
+		out.write(bytes);
+	}
+	
+	public static void writeVarString(DataOutputStream out, String string) throws IOException
+	{
+		byte[] bytes = string.getBytes();
+		writeVarInt(out, bytes.length);
+		out.write(bytes);
+	}
+	
+	public static void writeVarString(ByteBuffer buffer, String string) throws IOException
+	{
+		byte[] bytes = string.getBytes();
+		writeVarInt(buffer, bytes.length);
+		buffer.put(bytes);
+	}
+	
+	public static void writeVarInt(DataOutputStream out, int paramInt) throws IOException {
+	    while (true) {
+	        if ((paramInt & 0xFFFFFF80) == 0) {
+	          out.writeByte(paramInt);
+	          return;
+	        }
+	
+	        out.writeByte(paramInt & 0x7F | 0x80);
+	        paramInt >>>= 7;
+	    }
+	}
+	
+	public static void writeVarInt(ByteBuffer buffer, int paramInt) throws IOException {
+	    while (true) {
+	        if ((paramInt & 0xFFFFFF80) == 0) {
+	          buffer.put((byte) paramInt);
+	          return;
+	        }
+	
+	        buffer.put((byte) (paramInt & 0x7F | 0x80));
+	        paramInt >>>= 7;
+	    }
+	}
+
+	public static int readVarInt(DataInputStream in) throws IOException {
+	    int i = 0;
+	    int j = 0;
+	    while (true) {
+	        int k = in.readByte();
+	        i |= (k & 0x7F) << j++ * 7;
+	        if (j > 5) throw new RuntimeException("VarInt too big");
+	        if ((k & 0x80) != 128) break;
+	    }
+	    return i;
+	}
+	
+	public static int readVarInt(ByteBuffer buffer) throws IOException {
+	    int i = 0;
+	    int j = 0;
+	    while (true) {
+	        int k = buffer.get();
+	        i |= (k & 0x7F) << j++ * 7;
+	        if (j > 5) throw new RuntimeException("VarInt too big");
+	        if ((k & 0x80) != 128) break;
+	    }
+	    return i;
 	}
 }
