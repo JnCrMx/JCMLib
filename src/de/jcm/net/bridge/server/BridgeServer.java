@@ -15,6 +15,7 @@ import java.util.Arrays;
 import de.jcm.net.NetworkHelper;
 import de.jcm.net.bridge.Answer;
 import de.jcm.net.bridge.Request;
+import de.jcm.security.rsa.RSAKeyPair;
 
 public class BridgeServer
 {
@@ -26,7 +27,7 @@ public class BridgeServer
 
 		public ReceivingThread(Socket socket) throws IOException
 		{
-			this.socket = socket;
+			this.socket = socket;			
 			this.in = new DataInputStream(this.socket.getInputStream());
 			this.out = new DataOutputStream(this.socket.getOutputStream());
 		}
@@ -39,8 +40,17 @@ public class BridgeServer
 				byte magic = in.readByte();
 				if (magic == 0x33)
 				{
-					out.writeByte(0x33);
-
+					if(keys==null)
+					{
+						out.writeByte(0x33);
+					}
+					else
+					{
+						out.writeByte(0x32);
+						
+						
+					}
+					
 					String methodName = NetworkHelper.readString(in);
 					Object[] args = NetworkHelper.readFields(in);
 
@@ -110,6 +120,8 @@ public class BridgeServer
 	private String hostname;
 	private int port;
 	private boolean logging;
+	
+	private RSAKeyPair keys;
 
 	private boolean open;
 
@@ -123,6 +135,12 @@ public class BridgeServer
 		this.port = port;
 
 		performMethodCheck();
+	}
+	
+	public BridgeServer(Object object, String hostname, int port, RSAKeyPair keys)
+	{
+		this(object, hostname, port);
+		this.keys=keys;
 	}
 
 	protected boolean checkAuth(Method method, Request request)
@@ -153,13 +171,13 @@ public class BridgeServer
 					}
 					else
 					{
-						AuthMethod authMethod = (AuthMethod) Class.forName(auth.auth()).newInstance();
+						AuthMethod authMethod = (AuthMethod) Class.forName(auth.auth()).getDeclaredConstructor().newInstance();
 						return authMethod.auth(request.getAuthArguments());
 					}
 				}
 				catch (Exception e)
 				{
-					AuthMethod authMethod = (AuthMethod) Class.forName(auth.auth()).newInstance();
+					AuthMethod authMethod = (AuthMethod) Class.forName(auth.auth()).getDeclaredConstructor().newInstance();
 					return authMethod.auth(request.getAuthArguments());
 				}
 			}

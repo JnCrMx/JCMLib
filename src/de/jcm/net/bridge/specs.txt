@@ -4,6 +4,13 @@ Flow:
 	client >> server: 0x33 (magic number)
 	server >> client: 0x33 (magic number)
 	-------------------------------------
+	client >> server: 0x30 (use encryption)
+	client >> server: 0x01 (RSA)
+	client >> server: bit count
+	server >> client: public key: e->byte[]; N->byte[]
+	server >> client: certificate
+	client >> server: public key: e->byte[]; N->byte[]
+	-------------------------------------
 	client >> server: method name
 	
 	client >> server: count of arguments
