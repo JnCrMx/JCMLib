@@ -1,5 +1,9 @@
 package de.jcm.math.geo.vector;
 
+import de.jcm.math.geo.functions.LinearFunction;
+import de.jcm.math.geo.vector.helpers.VectorAngle;
+import de.jcm.math.geo.vector.helpers.VectorFunction;
+
 public class Vector2D
 {
 	private double x, y;
@@ -149,4 +153,49 @@ public class Vector2D
 		return this;
 	}
 
+	public Vector2D getIntersection(Vector2D vector)
+	{
+		double p1 = VectorFunction.getPitch(this);
+		double p2 = VectorFunction.getPitch(vector);
+
+		LinearFunction function1 = new LinearFunction(p1, y);
+		LinearFunction function2 = new LinearFunction(p2, vector.y);
+		
+		return function1.getIntersection(function2);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "v2d<"+Math.round(x*1000)/1000.0+" "+Math.round(y*1000)/1000.0+">";
+	}
+	
+	public Vector2D normalize()
+	{
+		double angle = VectorAngle.getAngleByVector2D(this);
+		return VectorAngle.createVector2D(angle, 1);
+	}
+	
+	public Vector2D rotate(double angle)
+	{
+		double angle1 = VectorAngle.getAngleByVector2D(this);
+		double value = VectorAngle.getValueByVector2D(this);
+		double angle2 = angle1 + angle;
+		return VectorAngle.createVector2D(angle2, value);
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(!(obj instanceof Vector2D))
+			return false;
+		Vector2D v = (Vector2D) obj;
+
+		double x1 = Math.round(x*1000)/1000.0;
+		double x2 = Math.round(v.x*1000)/1000.0;
+		double y1 = Math.round(y*1000)/1000.0;
+		double y2 = Math.round(v.y*1000)/1000.0;
+		
+		return x1==x2 && y1==y2; 
+	}
 }

@@ -1,6 +1,5 @@
 package de.jcm.math.geo.vector.helpers;
 
-import de.jcm.math.geo.Point2D;
 import de.jcm.math.geo.functions.LinearFunction;
 import de.jcm.math.geo.vector.Vector2D;
 
@@ -50,17 +49,16 @@ public class VectorSplitter
 		double m2s1 = VectorFunction.getPitch(v2);
 		LinearFunction f1s1 = new LinearFunction(m1s1, v2d.getY());
 		LinearFunction f2s1 = new LinearFunction(m2s1, 0);
-		Point2D insection1 = f1s1.getIntersection(f2s1);
-		Vector2D ev1 = new Vector2D(insection1.getX(), insection1.getY());
+		Vector2D insection1 = f1s1.getIntersection(f2s1);
 
 		double m1s2 = -VectorFunction.getPitch(v2);
 		double m2s2 = VectorFunction.getPitch(v1);
 		LinearFunction f1s2 = new LinearFunction(m1s2, v2d.getY());
 		LinearFunction f2s2 = new LinearFunction(m2s2, 0);
-		Point2D insection2 = f1s2.getIntersection(f2s2);
+		Vector2D insection2 = f1s2.getIntersection(f2s2);
 		Vector2D ev2 = new Vector2D(-insection2.getX(), insection2.getY());
 
-		return new Vector2D[] { ev1, ev2 };
+		return new Vector2D[] { insection1, ev2 };
 	}
 
 	/**

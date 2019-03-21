@@ -1,6 +1,6 @@
 package de.jcm.math.geo.functions;
 
-import de.jcm.math.geo.Point2D;
+import de.jcm.math.geo.vector.Vector2D;
 
 public class LinearFunction extends Function
 {
@@ -59,7 +59,7 @@ public class LinearFunction extends Function
 	 * @since 17.05.2017 19:58
 	 */
 	@Override
-	public Point2D getIntersection(Function function)
+	public Vector2D getIntersection(Function function)
 	{
 		if (!(function instanceof LinearFunction))
 		{
@@ -80,7 +80,7 @@ public class LinearFunction extends Function
 		double x = a / b;
 		double y = this.getAt(x);
 
-		return new Point2D(x, y);
+		return new Vector2D(x, y);
 	}
 
 }

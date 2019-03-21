@@ -1,6 +1,6 @@
 package de.jcm.math.geo.functions;
 
-import de.jcm.math.geo.Point2D;
+import de.jcm.math.geo.vector.Vector2D;
 
 public abstract class Function
 {
@@ -20,5 +20,5 @@ public abstract class Function
 	 * 
 	 * @author JCM
 	 */
-	public abstract Point2D getIntersection(Function function);
+	public abstract Vector2D getIntersection(Function function);
 }

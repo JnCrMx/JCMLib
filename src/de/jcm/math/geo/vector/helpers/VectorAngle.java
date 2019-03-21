@@ -1,6 +1,7 @@
 package de.jcm.math.geo.vector.helpers;
 
 import de.jcm.math.geo.vector.Vector2D;
+import de.jcm.math.geo.vector.Vector3D;
 
 public class VectorAngle
 {
@@ -25,8 +26,8 @@ public class VectorAngle
 	public static Vector2D createVector2D(double angle, double value)
 	{
 		double a2 = toRad(angle);
-		double x = Math.sin((float) a2);
-		double y = Math.cos((float) a2);
+		double x = Math.sin(a2);
+		double y = Math.cos(a2);
 		x = x * value;
 		y = y * value;
 		return new Vector2D(x, y);
@@ -71,6 +72,19 @@ public class VectorAngle
 	{
 		double value = Math.sqrt(v2d.getX() * v2d.getX() + v2d.getY() * v2d.getY());
 		return value;
+	}
+	
+	public static Vector3D createVector3D(double alpha, double beta, double value)
+	{
+		double x = Math.cos(alpha)*Math.cos(beta);
+		double z = Math.sin(alpha)*Math.cos(beta);
+		double y = Math.sin(beta);
+		
+		x*=value;
+		y*=value;
+		z*=value;
+		
+		return new Vector3D(x, y, z);
 	}
 
 	private static double toDeg(double rad)
