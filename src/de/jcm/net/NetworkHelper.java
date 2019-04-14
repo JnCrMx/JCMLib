@@ -1,6 +1,6 @@
 package de.jcm.net;
 
-import java.io.DataInputStream;
+import java.io.DataInput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -12,7 +12,7 @@ public class NetworkHelper
 	/** Don't let anyone instantiate this class */
 	private NetworkHelper() {}
 
-	public static Boolean[] readBooleanArray(DataInputStream in) throws IOException
+	public static Boolean[] readBooleanArray(DataInput in) throws IOException
 	{
 		int count = in.readInt();
 		Boolean[] booleans = new Boolean[count];
@@ -25,7 +25,7 @@ public class NetworkHelper
 		return booleans;
 	}
 
-	public static Byte[] readByteArray(DataInputStream in) throws IOException
+	public static Byte[] readByteArray(DataInput in) throws IOException
 	{
 		int count = in.readInt();
 		Byte[] bytes = new Byte[count];
@@ -38,7 +38,7 @@ public class NetworkHelper
 		return bytes;
 	}
 
-	public static Character[] readCharArray(DataInputStream in) throws IOException
+	public static Character[] readCharArray(DataInput in) throws IOException
 	{
 		int count = in.readInt();
 		Character[] chars = new Character[count];
@@ -51,7 +51,7 @@ public class NetworkHelper
 		return chars;
 	}
 
-	public static Double[] readDoubleArray(DataInputStream in) throws IOException
+	public static Double[] readDoubleArray(DataInput in) throws IOException
 	{
 		int count = in.readInt();
 		Double[] doubles = new Double[count];
@@ -64,7 +64,7 @@ public class NetworkHelper
 		return doubles;
 	}
 
-	public static Object readField(DataInputStream in) throws IOException
+	public static Object readField(DataInput in) throws IOException
 	{
 		Object field;
 
@@ -143,7 +143,7 @@ public class NetworkHelper
 		return field;
 	}
 
-	public static Object[] readFields(DataInputStream in) throws IOException
+	public static Object[] readFields(DataInput in) throws IOException
 	{
 		int argumentCount = in.readInt();
 		Object[] arguments = new Object[argumentCount];
@@ -156,7 +156,7 @@ public class NetworkHelper
 		return arguments;
 	}
 
-	public static Float[] readFloatArray(DataInputStream in) throws IOException
+	public static Float[] readFloatArray(DataInput in) throws IOException
 	{
 		int count = in.readInt();
 		Float[] floats = new Float[count];
@@ -169,7 +169,7 @@ public class NetworkHelper
 		return floats;
 	}
 
-	public static Integer[] readIntArray(DataInputStream in) throws IOException
+	public static Integer[] readIntArray(DataInput in) throws IOException
 	{
 		int count = in.readInt();
 		Integer[] ints = new Integer[count];
@@ -182,7 +182,7 @@ public class NetworkHelper
 		return ints;
 	}
 
-	public static Long[] readLongArray(DataInputStream in) throws IOException
+	public static Long[] readLongArray(DataInput in) throws IOException
 	{
 		int count = in.readInt();
 		Long[] longs = new Long[count];
@@ -195,35 +195,35 @@ public class NetworkHelper
 		return longs;
 	}
 
-	public static String readString(DataInputStream input) throws IOException
+	public static String readString(DataInput input) throws IOException
 	{
 		int lenght = input.readInt();
 		byte[] bytes = new byte[lenght];
-		input.read(bytes, 0, lenght);
+		input.readFully(bytes, 0, lenght);
 
 		return new String(bytes);
 	}
-	
-	public static String readVarString(DataInputStream in) throws IOException
+
+	public static String readVarString(DataInput in) throws IOException
 	{
 		int length = readVarInt(in);
 		return readString(in, length);
 	}
-	
+
 	public static String readVarString(ByteBuffer buffer) throws IOException
 	{
 		int length = readVarInt(buffer);
 		return readString(buffer, length);
 	}
 
-	public static String readString(DataInputStream input, int lenght) throws IOException
+	public static String readString(DataInput input, int lenght) throws IOException
 	{
 		byte[] bytes = new byte[lenght];
-		input.read(bytes, 0, lenght);
+		input.readFully(bytes, 0, lenght);
 
 		return new String(bytes);
 	}
-	
+
 	public static String readString(ByteBuffer input, int lenght) throws IOException
 	{
 		byte[] bytes = new byte[lenght];
@@ -231,7 +231,7 @@ public class NetworkHelper
 
 		return new String(bytes);
 	}
-	
+
 	public static String readUCS2String(ByteBuffer input, int lenght) throws IOException
 	{
 		String str="";
@@ -243,7 +243,7 @@ public class NetworkHelper
 		return str;
 	}
 
-	public static String[] readStringArray(DataInputStream in) throws IOException
+	public static String[] readStringArray(DataInput in) throws IOException
 	{
 		int count = in.readInt();
 		String[] strings = new String[count];
@@ -405,53 +405,53 @@ public class NetworkHelper
 		out.writeInt(bytes.length);
 		out.write(bytes);
 	}
-	
+
 	public static void writeString(DataOutputStream out, String string) throws IOException
 	{
 		byte[] bytes = string.getBytes();
 		out.writeInt(bytes.length);
 		out.write(bytes);
 	}
-	
+
 	public static void writeVarString(DataOutputStream out, String string) throws IOException
 	{
 		byte[] bytes = string.getBytes();
 		writeVarInt(out, bytes.length);
 		out.write(bytes);
 	}
-	
+
 	public static void writeVarString(ByteBuffer buffer, String string) throws IOException
 	{
 		byte[] bytes = string.getBytes();
 		writeVarInt(buffer, bytes.length);
 		buffer.put(bytes);
 	}
-	
+
 	public static void writeVarInt(DataOutputStream out, int paramInt) throws IOException {
 	    while (true) {
 	        if ((paramInt & 0xFFFFFF80) == 0) {
 	          out.writeByte(paramInt);
 	          return;
 	        }
-	
+
 	        out.writeByte(paramInt & 0x7F | 0x80);
 	        paramInt >>>= 7;
 	    }
 	}
-	
+
 	public static void writeVarInt(ByteBuffer buffer, int paramInt) throws IOException {
 	    while (true) {
 	        if ((paramInt & 0xFFFFFF80) == 0) {
 	          buffer.put((byte) paramInt);
 	          return;
 	        }
-	
+
 	        buffer.put((byte) (paramInt & 0x7F | 0x80));
 	        paramInt >>>= 7;
 	    }
 	}
 
-	public static int readVarInt(DataInputStream in) throws IOException {
+	public static int readVarInt(DataInput in) throws IOException {
 	    int i = 0;
 	    int j = 0;
 	    while (true) {
@@ -462,7 +462,7 @@ public class NetworkHelper
 	    }
 	    return i;
 	}
-	
+
 	public static int readVarInt(ByteBuffer buffer) throws IOException {
 	    int i = 0;
 	    int j = 0;
