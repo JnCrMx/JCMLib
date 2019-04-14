@@ -1,7 +1,7 @@
 package de.jcm.net;
 
 import java.io.DataInput;
-import java.io.DataOutputStream;
+import java.io.DataOutput;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -256,7 +256,7 @@ public class NetworkHelper
 		return strings;
 	}
 
-	public static void writeArray(DataOutputStream out, int type, Object[] array) throws IOException
+	public static void writeArray(DataOutput out, int type, Object[] array) throws IOException
 	{
 		out.writeByte(type);
 
@@ -301,7 +301,7 @@ public class NetworkHelper
 		}
 	}
 
-	public static void writeField(DataOutputStream out, Object field) throws IOException
+	public static void writeField(DataOutput out, Object field) throws IOException
 	{
 		if (field != null)
 		{
@@ -388,7 +388,7 @@ public class NetworkHelper
 		}
 	}
 
-	public static void writeFields(DataOutputStream out, Object[] fields) throws IOException
+	public static void writeFields(DataOutput out, Object[] fields) throws IOException
 	{
 		int count = fields.length;
 		out.writeInt(count);
@@ -399,21 +399,21 @@ public class NetworkHelper
 		}
 	}
 
-	public static void writeString(DataOutputStream out, String string, Charset charset) throws IOException
+	public static void writeString(DataOutput out, String string, Charset charset) throws IOException
 	{
 		byte[] bytes = string.getBytes(charset);
 		out.writeInt(bytes.length);
 		out.write(bytes);
 	}
 
-	public static void writeString(DataOutputStream out, String string) throws IOException
+	public static void writeString(DataOutput out, String string) throws IOException
 	{
 		byte[] bytes = string.getBytes();
 		out.writeInt(bytes.length);
 		out.write(bytes);
 	}
 
-	public static void writeVarString(DataOutputStream out, String string) throws IOException
+	public static void writeVarString(DataOutput out, String string) throws IOException
 	{
 		byte[] bytes = string.getBytes();
 		writeVarInt(out, bytes.length);
@@ -427,7 +427,7 @@ public class NetworkHelper
 		buffer.put(bytes);
 	}
 
-	public static void writeVarInt(DataOutputStream out, int paramInt) throws IOException {
+	public static void writeVarInt(DataOutput out, int paramInt) throws IOException {
 	    while (true) {
 	        if ((paramInt & 0xFFFFFF80) == 0) {
 	          out.writeByte(paramInt);
