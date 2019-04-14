@@ -3,7 +3,7 @@ package de.jcm.security.rsa;
 import java.math.BigInteger;
 import java.util.Random;
 
-import de.jcm.math.geo.ExtendedEuclideanAlgorithm;
+import de.jcm.math.ExtendedEuclideanAlgorithm;
 
 public class RSAKeyPair
 {
