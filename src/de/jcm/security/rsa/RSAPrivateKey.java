@@ -7,7 +7,7 @@ public class RSAPrivateKey
 {
 	private BigInteger modulo;
 	private BigInteger exponent;
-	
+
 	/**
 	 * @param modulo
 	 * @param power
@@ -17,7 +17,7 @@ public class RSAPrivateKey
 		this.modulo = modulo;
 		this.exponent = exponent;
 	}
-	
+
 	/**
 	 * @return the modulo
 	 */
@@ -32,7 +32,7 @@ public class RSAPrivateKey
 	{
 		this.modulo = modulo;
 	}
-	
+
 	/**
 	 * @return the exponent
 	 */
@@ -47,30 +47,30 @@ public class RSAPrivateKey
 	{
 		this.exponent = exponent;
 	}
-	
+
 	public BigInteger decrypt(BigInteger src)
 	{
 		return src.modPow(exponent, modulo);
 	}
-	
+
 	public byte[] decrypt(byte[] bytes)
 	{
 		int bits=modulo.bitLength()-1;
 
 		int len=(int) Math.ceil(((double)bits)/8.0);
 		int count=(int) Math.ceil(((double)bytes.length)/((double)len));
-		
+
 		ByteArrayOutputStream decrypted=new ByteArrayOutputStream();
 
 //		System.out.println("Decryption{count: "+count+" len: "+len+" bits:"+bits+"}");
-		
+
 		for(int i=0;i<count;i++)
-		{			
+		{
 			if(count>=100)
 			{
 				System.out.println("[DEBUG] "+(i+1)+"/"+count);
 			}
-			
+
 			byte[] array2=new byte[len];
 			for(int j=0;j<len;j++)
 			{
@@ -82,18 +82,18 @@ public class RSAPrivateKey
 				}
 				array2[j]=bytes[pos];
 			}
-			
+
 //			System.out.println(array2[1]);
-			
-			BigInteger integer=new BigInteger(array2);		
-			
+
+			BigInteger integer=new BigInteger(array2);
+
 //			System.out.println("E = "+integer);
-			
+
 			integer=decrypt(integer);
 			array2=integer.toByteArray();
-			
+
 //			System.out.println("D = "+integer);
-			
+
 			if(array2[0]==1)
 			{
 				decrypted.write(array2, 1, array2.length-1);
@@ -103,7 +103,17 @@ public class RSAPrivateKey
 				decrypted.write(array2, 0, array2.length);
 			}
 		}
-		
+
 		return decrypted.toByteArray();
+	}
+
+	public BigInteger encrypt(BigInteger src)
+	{
+		return decrypt(src);
+	}
+
+	public byte[] encrypt(byte[] src)
+	{
+		return decrypt(src);
 	}
 }
