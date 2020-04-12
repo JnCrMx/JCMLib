@@ -72,7 +72,7 @@ public class Vector2D
 	/**
 	 * Returns the coordinate of the vector on the x axis.
 	 * 
-	 * @return The vector´s x value
+	 * @return The vector's x value
 	 * 
 	 * @see de.jcm.math.geo.vector.Vector2D#getY()
 	 * 
@@ -87,7 +87,7 @@ public class Vector2D
 	/**
 	 * Returns the coordinate of the vector on the y axis.
 	 * 
-	 * @return The vector´s y value
+	 * @return The vector's y value
 	 * 
 	 * @see de.jcm.math.geo.vector.Vector2D#getX()
 	 * 

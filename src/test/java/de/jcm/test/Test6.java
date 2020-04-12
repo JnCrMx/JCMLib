@@ -23,7 +23,7 @@ public class Test6
 		
 		System.out.println();
 		
-		String string="Buguser in der \"Realität\" :)";
+		String string="Buguser in der \"RealitÃ¤t\" :)";
 		
 		for(byte byte1 : string.getBytes())
 		{

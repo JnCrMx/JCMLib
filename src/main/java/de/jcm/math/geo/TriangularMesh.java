@@ -1,9 +1,6 @@
 package de.jcm.math.geo;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -46,9 +43,9 @@ public class TriangularMesh implements Iterable<Triangle3D>
 		return triangles.iterator();
 	}
 	
-	public static TriangularMesh readFromObjFile(File file) throws NumberFormatException, IOException
+	public static TriangularMesh readFromStream(InputStream in) throws NumberFormatException, IOException
 	{
-		BufferedReader reader=new BufferedReader(new FileReader(file));
+		BufferedReader reader=new BufferedReader(new InputStreamReader(in));
 
 		ArrayList<Vector3D> points = new ArrayList<>();
 		ArrayList<Vector3D> normals = new ArrayList<>();

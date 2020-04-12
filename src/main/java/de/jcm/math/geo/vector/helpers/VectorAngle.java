@@ -12,7 +12,7 @@ public class VectorAngle
 	 * Creates a vector from angle and value.
 	 * 
 	 * @param angle
-	 *            Angle the vector´s direction is
+	 *            Angle the vector's direction is
 	 * @param value
 	 *            Value of the vector
 	 * @return The created vector

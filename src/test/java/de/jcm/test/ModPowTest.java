@@ -1,13 +1,12 @@
 package de.jcm.test;
 
-import static org.junit.Assert.assertEquals;
-
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
-import org.junit.Test;
-
 import de.jcm.security.rsa.RSAKeyPair;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ModPowTest
 {

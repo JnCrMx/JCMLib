@@ -2,18 +2,17 @@ package de.jcm.test;
 
 import static java.lang.Math.atan2;
 import static java.lang.Math.sqrt;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Random;
-
-import org.junit.Test;
 
 import de.jcm.math.geo.vector.Vector3D;
 import de.jcm.math.geo.vector.helpers.VectorAngle;
 
+import org.junit.jupiter.api.Test;
+
 class Vector3DTest
 {
-	
 	@Test
 	void rangeTest10()
 	{
